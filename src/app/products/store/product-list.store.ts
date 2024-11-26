@@ -55,6 +55,21 @@ export class ProductListStore extends ComponentStore<ProductListState> {
     )
   );
 
+  readonly addProduct = this.effect<IProduct>((product$) => 
+      product$.pipe(
+        switchMap(newProduct => this.productService.addProduct(newProduct).pipe(
+          tap({
+            next: (product) => {
+              this.patchState(state => ({
+                products: [...state.products, product],
+                filteredProducts: this.filterProducts([...state.products, product], state.filterText)
+              }))
+            }
+          })
+        ))
+      )
+  )
+
   private filterProducts(products: IProduct[], filterBy: string): IProduct[] {
     filterBy = filterBy.toLocaleLowerCase();
     return products.filter((product: IProduct) =>

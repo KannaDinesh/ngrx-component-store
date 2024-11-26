@@ -1,6 +1,6 @@
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, catchError, tap, throwError, map } from 'rxjs';
+import { Observable, catchError, tap, throwError, map, of, delay } from 'rxjs';
 
 import { IProduct } from './product';
 
@@ -29,6 +29,10 @@ export class ProductService {
     return this.getProducts().pipe(
       map((products: IProduct[]) => products.find((p) => p.productId === id))
     );
+  }
+
+  addProduct(product: IProduct): Observable<IProduct> {
+    return of(product).pipe(delay(500));
   }
 
   private handleError(err: HttpErrorResponse): Observable<never> {

@@ -12,6 +12,11 @@
           [value]="filterText$ | async"
         />
       </div>
+      <div class="col-md-4">
+        <button class="btn btn-primary" (click)="addProduct()">
+          Add Product
+        </button>
+      </div>
     </div>
     <div class="row" *ngIf="filterText$ | async">
       <div class="col-md-6">

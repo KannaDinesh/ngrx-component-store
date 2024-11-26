@@ -11,6 +11,11 @@ import { RouterLink } from '@angular/router';
 import { ConvertToSpacesPipe } from '../shared/convert-to-spaces.pipe';
 import { StarComponent } from '../shared/star.component';
 import { ProductListStore } from './store/product-list.store';
+import { IProduct } from './product';
+
+/**
+ * All API call should be in store instead of component
+ */
 
 @Component({
   templateUrl: './product-list.component.html',
@@ -59,5 +64,19 @@ export class ProductListComponent implements OnInit {
 
   onRatingClicked(message: string): void {
     this.pageTitle = 'Product List: ' + message;
+  }
+
+  addProduct(): void {
+    const staticProduct: IProduct = {
+      productId: 999,
+      productName: 'New Static Product',
+      productCode: 'NEW-001',
+      description: 'New static product',
+      releaseDate: '2024-11-15',
+      price: 100.0,
+      starRating: 4.5,
+      imageUrl: 'https://via.placeholder.com/150'
+    };
+    this.store.addProduct(staticProduct);
   }
 }
